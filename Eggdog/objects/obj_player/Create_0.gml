@@ -16,6 +16,8 @@ stretch = 0;
 stretchmax = 255;
 //When you press down, set stretch reset to true, which will rapidly unstretch you.
 stretchreset = false;
+//Wether you unstretch up or down.
+stretchdir = 0;
 
 //Speed variables, your X and Y position is increased by them every frame.
 xspeed = 0;

@@ -42,17 +42,22 @@ if onfloor == true {
 	}
 }
 
-if keyboard_check(global.down) && stretch != 0 {
+if input_pressed(global.down) != 0 && stretch > 1 && stretchreset = false {
+	if input_pressed(global.up) = -1 stretchdir = 0
+	if input_pressed(global.down) = 1 stretchdir = 1;
 	stretchreset = true;
 }
 
-if input(global.up) == -1 && stretchreset = false {
-	if stretch < stretchmax && place_empty(x, y - 5 + yspeed, obj_col) stretch += 5;
+if input(global.up) == -1 && stretchreset == false {
+	if stretch < stretchmax && place_empty(x, y - 10, obj_col) stretch += 5;
+	if place_meeting(x, y - 10, obj_col) {
+
+	}
 }
 
 if stretchreset == true {
-	stretch -= 15;
-	y -= 30;
+	stretch -= 15; 
+	if stretchdir = 0 y -= 30;
 	if stretch <= 0 {
 		stretch = 0;
 		stretchreset = false;
