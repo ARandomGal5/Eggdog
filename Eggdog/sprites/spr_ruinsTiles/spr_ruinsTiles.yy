@@ -2,9 +2,9 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_ruinsTiles",
-  "bbox_bottom": 159,
+  "bbox_bottom": 415,
   "bbox_left": 0,
-  "bbox_right": 191,
+  "bbox_right": 447,
   "bbox_top": 32,
   "bboxMode": 0,
   "collisionKind": 1,
@@ -17,7 +17,7 @@
   ],
   "gridX": 8,
   "gridY": 8,
-  "height": 256,
+  "height": 512,
   "HTile": false,
   "layers": [
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"21c2587d-ff47-4e78-b4bf-a8a12d010989","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
@@ -70,5 +70,5 @@
   },
   "type": 0,
   "VTile": false,
-  "width": 256,
+  "width": 512,
 }
