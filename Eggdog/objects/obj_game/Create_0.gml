@@ -7,3 +7,5 @@ global.down = vk_down;
 global.jump = ord("Z");
 
 fullscreen = false;
+
+global.song = -1;

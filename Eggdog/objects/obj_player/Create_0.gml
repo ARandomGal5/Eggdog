@@ -11,10 +11,16 @@ hurt = 5;
 _health = 3;
 //How many strawberries the player has.
 berry = 0;
+//How many big strawberry slices the player has.
+slice = 0;
 
 //The position your last checkpoint is at (defaults to your spawn position).
 chx = x;
 chy = y;
+
+//The position to draw the slice number text after collecting a berry slice (0 0 will not draw them at all)
+numx = 0;
+numy = 0;
 
 //How stretched the egg is (for every +1 to the value add 2 pixels to the center).
 stretch = 0;
@@ -24,6 +30,8 @@ stretchmax = 255;
 stretchreset = false;
 //Wether you unstretch up or down.
 stretchdir = 0;
+//Makes it so you have to let go of up after stretching to unstretch.
+unstretch = true;
 
 //Speed variables, your X and Y position is increased by them every frame.
 xspeed = 0;
@@ -46,8 +54,19 @@ termveloc = 30;
 ledgetol = -1;
 //Invincibilty frame timer (will not count down if it is less than 0, so is set to -1 for no I frames)
 iframe = -1;
+//Death timer (how long it takes for you to respawn).
+deathtime = -1;
+//The length to draw the death rectangle effect thing. (top left is 0, 0, bottom right is this variable, 1080, which increases every frame once the effect starts.)
+dlength = 0;
+//(shitty variable name aside) tells the game to 'undraw' the rectangle (draw it from right to left upon respawning)
+undie = false;
 //Set to true when you spin, makes it so you have to release the down button to spin again.
 spinpressed = true;
 
 //The game checks if there is collision a pixel under you, and if so set this variable to true. Used to know what state to put the player in.
 onfloor = false;
+
+//What each sprite is (the player's sprites are split into a top, middle, and bottom sprite to get the stretch mechanic to work smoothly).
+sprtop = spr_eggTop;
+sprmid = spr_eggMiddle;
+sprbot = spr_eggBottom;

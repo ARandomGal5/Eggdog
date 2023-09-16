@@ -1,12 +1,21 @@
-if stretch = 0 {
-	if iframe <= 0 || frac(iframe/4) == 0 draw_self();
+//Sets the sprite
+if state != hurt {
+	sprtop = spr_eggTop;
+	sprmid = spr_eggMiddle;
+	sprbot = spr_eggBottom;	
 } else {
-	draw_sprite_ext(spr_eggBottom, -1, x, y, 4*xdir, 4, image_angle, image_blend, image_alpha);	
-	draw_sprite_ext(spr_eggMiddle, -1, x, y - 32, 4*xdir, 4+stretch, image_angle, image_blend, image_alpha);
-	draw_sprite_ext(spr_eggTop, -1, x, y - 64 - (stretch*2), 4*xdir, 4, image_angle, image_blend, image_alpha);
+	sprtop = spr_eggHurtTop;
+}
+
+if iframe <= 0 || frac(iframe/4) == 0 
+{
+	if state != spin && _health > 0 {
+		//Drawn from bottom to top so the top overlaps the middle segment.
+		draw_sprite_ext(sprbot, -1, x, y, 4*xdir, 4, image_angle, image_blend, image_alpha);	
+		draw_sprite_ext(sprmid, -1, x, y - 32, 4*xdir, 4+stretch, image_angle, image_blend, image_alpha);
+		draw_sprite_ext(sprtop, -1, x, y - 64 - (stretch*2), 4*xdir, 4, image_angle, image_blend, image_alpha);
+	} else draw_self();
 }
 
 draw_set_color(c_red);
-draw_rectangle(x - 5, y - 5, x + 5, y + 5, true);
-draw_set_color(c_lime)
-draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+draw_text(numx, numy, string(slice));

@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "spr_strawberry",
   "bbox_bottom": 15,
-  "bbox_left": 1,
-  "bbox_right": 14,
+  "bbox_left": 0,
+  "bbox_right": 15,
   "bbox_top": 0,
   "bboxMode": 0,
   "collisionKind": 1,
@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "objects",
-    "path": "folders/Sprites/objects.yy",
+    "name": "generic",
+    "path": "folders/Sprites/objects/generic.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
