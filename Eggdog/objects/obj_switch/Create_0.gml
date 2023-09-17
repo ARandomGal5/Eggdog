@@ -1,2 +1,2 @@
-_id = 0;
 active = true;
+_id = image_index;

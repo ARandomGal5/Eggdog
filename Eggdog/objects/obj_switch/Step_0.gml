@@ -4,6 +4,11 @@ if place_meeting(x, y, obj_player) && active == true {
 			instance_find(obj_ruinsSpike, _i).state = !instance_find(obj_ruinsSpike, _i).state;	
 		}
 	}
+	audio_play_sound(snd_ruinsSwitch, 1, false);
 	active = false;
 }
 if !place_meeting(x, y, obj_player) active = true;
+
+//Id 0 = Red
+//Id 1 = Blue
+//Id 2 = Green

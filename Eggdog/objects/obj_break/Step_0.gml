@@ -16,3 +16,6 @@ if _health == 0 {
 	//Resets health so that if it is reactivated upon player respawn it doesn't instantly deactivate again.
 	_health = starthealth;
 }
+
+//Changes the sprite based on the 'sprite' variable which should be defined in the instance create code.
+sprite_index = sprite;
