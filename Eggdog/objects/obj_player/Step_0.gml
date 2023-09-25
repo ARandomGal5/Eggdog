@@ -21,6 +21,7 @@ if tile_meeting(x, y + yspeed, "tiles") {
 //A. Allow for dedicated 'oveerride' collisions like invisible walls in places where there should be no tiles.
 //B. Allows the collision object to parent objects that should be solid like obj_break
 
+//Checks for horizontal collision.
 if place_meeting(x + xspeed, y, obj_col) {
 	//Loop you out of it.
 	while !place_meeting(x + sign(xspeed), y, obj_col) {

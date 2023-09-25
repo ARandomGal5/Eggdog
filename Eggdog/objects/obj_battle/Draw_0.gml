@@ -76,8 +76,8 @@ if turn == 1 {
 draw_set_font(font);
 //Sets the draw color to white.
 draw_set_color(c_white);
-//Draws the flavor text at the bottom of the screen.
-if select == 0 {
+//Draws the flavor text at the bottom of the screen if you are selecting buttons.
+if select == 0 && turn < 2 {
 	//The * is drawn seperatly because for some reason the space between it and the rest of the text is different than the normal space size.
 	draw_text(60, 756, "*");
 	draw_text(120, 756, flavor[0]);

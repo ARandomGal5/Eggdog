@@ -132,6 +132,7 @@
     {"id":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"spr_enemy","path":"sprites/spr_enemy/spr_enemy.yy",},},
+    {"id":{"name":"spr_soulOutline","path":"sprites/spr_soulOutline/spr_soulOutline.yy",},},
     {"id":{"name":"snd_explosion","path":"sounds/snd_explosion/snd_explosion.yy",},},
     {"id":{"name":"snd_jump","path":"sounds/snd_jump/snd_jump.yy",},},
     {"id":{"name":"spr_checkPoint","path":"sprites/spr_checkPoint/spr_checkPoint.yy",},},

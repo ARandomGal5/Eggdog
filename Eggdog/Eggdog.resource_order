@@ -99,6 +99,7 @@
     {"name":"spr_yolk","order":5,"path":"sprites/spr_yolk/spr_yolk.yy",},
     {"name":"obj_enemy","order":3,"path":"objects/obj_enemy/obj_enemy.yy",},
     {"name":"obj_camera","order":2,"path":"objects/obj_camera/obj_camera.yy",},
+    {"name":"spr_soulOutline","order":11,"path":"sprites/spr_soulOutline/spr_soulOutline.yy",},
     {"name":"snd_explosion","order":3,"path":"sounds/snd_explosion/snd_explosion.yy",},
     {"name":"spr_checkPoint","order":6,"path":"sprites/spr_checkPoint/spr_checkPoint.yy",},
     {"name":"spr_button","order":4,"path":"sprites/spr_button/spr_button.yy",},
