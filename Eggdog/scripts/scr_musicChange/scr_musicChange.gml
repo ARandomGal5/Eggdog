@@ -1,8 +1,9 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function music_change(song){
+	//Checks if the set song isn't already playing.
 	if global.song != song {
+		//Stop the current song.
 		audio_stop_sound(global.song);
+		//Play the new song set in the function.
 		global.song = song;
 	}
 }

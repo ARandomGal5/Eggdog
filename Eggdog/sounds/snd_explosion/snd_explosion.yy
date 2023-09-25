@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "snd_explosion",
   "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+    "name": "Sounds",
+    "path": "audiogroups/Sounds",
   },
   "bitDepth": 1,
   "bitRate": 128,

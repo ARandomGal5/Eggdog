@@ -10,3 +10,4 @@ surface_resize(application_surface, view_width, view_height);
 
 focus = true;
 
+lastroom = room;

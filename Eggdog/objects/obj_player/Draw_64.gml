@@ -31,7 +31,3 @@ if dlength >= 1920 {
 	draw_text(960, 540, string(_string));
 } else boffset = -10;
 	
-draw_set_font(fnt_debug);
-draw_set_color(c_white);
-draw_text(0, 0, string(state));
-draw_text(0, 32, string(xspeed));

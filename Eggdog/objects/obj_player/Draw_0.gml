@@ -17,5 +17,9 @@ if iframe <= 0 || frac(iframe/4) == 0
 	} else draw_self();
 }
 
+
+
 draw_set_color(c_red);
 draw_text(numx, numy, string(slice));
+
+draw_set_color(c_lime);

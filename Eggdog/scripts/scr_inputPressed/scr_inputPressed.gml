@@ -3,7 +3,7 @@
 function input_pressed(key){
 	//Horizontal inputs, accepts either left or right key for convience. Returns -1 on left inputs, 1 on right inputs, and 0 if there is no horizontal input.
 	if (key == global.left || key == global.right) {
-		return keyboard_check(global.right) - keyboard_check(global.left);	
+		return keyboard_check_pressed(global.right) - keyboard_check_pressed(global.left);	
 	}
 	
 	if (key == global.up || key == global.down) {
@@ -11,6 +11,10 @@ function input_pressed(key){
 	}
 	
 	if key == global.jump {
-		return keyboard_check(global.jump);
+		return keyboard_check_pressed(global.jump);
+	}
+	
+	if key == global.back {
+		return keyboard_check_pressed(global.back);
 	}
 }

@@ -1,4 +1,26 @@
+//Tile Collisions
 //Check for horizontal collision.
+if tile_meeting(x + xspeed, y, "tiles") {
+	//Loop you out of it.
+	while !tile_meeting(x + sign(xspeed), y, "tiles") {
+		x += sign(xspeed)
+	}
+	//Set your horizontal speed to 0.
+	xspeed = 0;
+}
+
+//Same thing but vertical.
+if tile_meeting(x, y + yspeed, "tiles") {
+	while !tile_meeting(x, y + sign(yspeed), "tiles") {
+		y += sign(yspeed)
+	}
+	yspeed = 0;
+}
+
+//Also has object based collisions, which has two uses.
+//A. Allow for dedicated 'oveerride' collisions like invisible walls in places where there should be no tiles.
+//B. Allows the collision object to parent objects that should be solid like obj_break
+
 if place_meeting(x + xspeed, y, obj_col) {
 	//Loop you out of it.
 	while !place_meeting(x + sign(xspeed), y, obj_col) {
@@ -16,17 +38,31 @@ if place_meeting(x, y + yspeed, obj_col) {
 	yspeed = 0;
 }
 
+
+if place_meeting(x, y + yspeed, obj_semiSolid) {
+	if collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false) {
+		while !place_meeting(x, y + sign(yspeed), obj_semiSolid) {
+			y += sign(yspeed)
+		}
+		yspeed = 0;
+	}
+}
+
+//Checks for the "pause" variable, which is set to true when you pause the game or are in a cutscene.
+if pause == false {
 //Increment your position by your speed values every frame.
 x += xspeed;
 y += yspeed;
 
-if place_meeting(x, y, obj_screen) {
-	obj_camera.screen = instance_place(x, y, obj_screen);
-	obj_camera.focus = true;
-} else obj_camera.focus = false;
+//Checks if you are on the floor, by checking if there is a collision object or semisolid below you.
+if tile_meeting(x, y + 1, "tiles") || place_meeting(x, y + 1, obj_col) || collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false) {
+	if collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false) {
+		var semisolid = collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false)
+		if bbox_bottom >= semisolid.bbox_top && yspeed >= 0 onfloor = true;
+	} else onfloor = true;
+} else onfloor = false;
 
-//Checks if you are on the floor.
-if place_meeting(x, y + 1, obj_col) onfloor = true else onfloor = false;
+
 
 //Checks if you collect a strawberry.
 if place_meeting(x, y, obj_strawberry) {
@@ -97,7 +133,7 @@ if onfloor == true {
 			if input(global.left) != 0 state = running else state = idle;
 		}
 		//Checks if you press the jump button without a ceiling touching you and send you into the jumping state.
-		if input(global.jump) && place_empty(x, y - 1, obj_col) {
+		if input(global.jump) && !tile_meeting(x, y - 1, "tiles") && !place_meeting(x, y - 1, obj_col) {
 			//Sets your initial vertical velocity.
 			yspeed = -jumpinit;
 			//Plays the jump sound effect.
@@ -128,17 +164,28 @@ if onfloor == true {
 if input(global.up) == -1 && stretchreset == false && _health > 0 {
 	if stretch = 0 unstretch = false;
 	//If you are under the maximum stretch amount and there is not a collision object above where you will stretch to next, increase your stretch amout by 5 every frame.
-	if stretch < stretchmax && place_empty(x, y - 10, obj_col) stretch += 5;
+	if stretch < stretchmax && !tile_meeting(x, y - 10, "tiles") && !place_meeting(x, y - 10, obj_col) stretch += 5;
 	//If you are over the max stretch length, reset to the max.
 	if stretch > stretchmax stretch = stretchmax;
 	//Checks if the next space filled by your stretch will be occupied.
-	if place_meeting(x, y - 10, obj_col) {
+	if tile_meeting(x, y - 10, "tiles") {
 		//Loops until you are level with the ceiling to snap you against it.
-		for(var _i = 1; place_empty(x, y - _i - 5, obj_col); _i++) {
+		for(var _i = 1; !tile_meeting(x, y - _i - 5, "tiles"); _i++) {
 			stretch += 1;
 		}
 	}
+	
+	if place_meeting(x, y - 10, obj_col) {
+		//Loops until you are level with the ceiling to snap you against it.
+		for(var _i = 1; !place_meeting(x, y - _i - 5, obj_col); _i++) {
+			stretch += 1;
+		}
+	}
+	
 	if !audio_is_playing(snd_stretch) audio_play_sound(snd_stretch, 1, false);
+	
+	//Stops the streching sound if you stretch into a ceiling.
+	if (tile_meeting(x, y - 10, "tiles") || place_meeting(x, y - 10, obj_col)) && audio_is_playing(snd_stretch) audio_pause_sound(snd_stretch) else audio_resume_sound(snd_stretch);
 } 
 if input(global.up) != -1 unstretch = true;
 
@@ -153,10 +200,16 @@ if input_pressed(global.down) != 0 && stretch > 1 && stretchreset == false && un
 
 //Checks if you are unstretching.
 if stretchreset == true {
-	//Unstretch by 30 every frame.
-	stretch -= 30; 
 	//If you are unstretching up, decrease your Y by double the unstretch rate so that you go up.
-	if stretchdir = 0 && !collision_line(bbox_left + 1, bbox_bottom - 120, bbox_right - 1, bbox_bottom - 120, obj_col, false, true) y -= 60;
+	if stretchdir = 0 {
+		if stretch >= 30 y -= 60 else {
+			y -= stretch*2;
+			if !tile_meeting(x, y - 2, "tiles") && !place_meeting(x, y - 2, obj_col) y -= 2;
+		}
+	}
+	//Unstretch by 30 every frame.
+	if stretch >= 30 stretch -= 30 else stretch = 0; 
+
 	//If you are done strecthing, set your stretch to 0 and stpo unstretching.
 	if stretch <= 0 {
 		stretch = 0;
@@ -173,11 +226,12 @@ image_xscale = 4*xdir;
 if stretch != 0 image_yscale = 4+stretch/8 else image_yscale = 4;
 
 if state == idle {
-	//If you are moving, decrease your speed by 2 every frame.
-	if xspeed > 0 xspeed -= 2;
-	if xspeed < 0 xspeed += 2;
+	//If you are moving, decrease your speed by your acceleration every frame.
+	if xspeed > 0 xspeed -= accel;
+	if xspeed < 0 xspeed += accel;
 	//Round your speed down to 0 once it is equal to 1.
 	if xspeed = 1 || xspeed = -1 xspeed = 0;
+	if _health > 0 yspeed = 0;
 }
 if state == running {
 	//Checks if you are under the speed cap in the direction you are holding, then accelerates your speed every frame.
@@ -197,6 +251,11 @@ if state == falling {
 	}
 	//If your vertical speed is less than terminal velocity, and you aren't unstretching, increase your falling speed.
 	if yspeed < termveloc && stretchreset = false yspeed += fallaccel;
+	//Makes it so that if you touch the floor you instantly go to the idle state.
+	if onfloor == true {
+		yspeed = 0;
+		state = idle;
+	}
 	//If you are unstretching, set your vertical speed to 0.
 	if stretchreset = true yspeed = 0;
 	ledgetol -= 1;
@@ -301,3 +360,4 @@ if _health <= 0 {
 	}
 	sprite_index = spr_eggFried;
 } else deathtime = -1;
+}

@@ -7,6 +7,10 @@ jumping = 3;
 spin = 4;
 hurt = 5;
 
+//If your bottom is within a tile on spawn, unclip you, makes it so that having a grid aligned eggdog above the floor doesn't clip you into it.
+if tile_meeting(x, y + 1, "tiles") y -= 1;
+
+
 //The health of the player.
 _health = 3;
 //How many strawberries the player has.
@@ -25,7 +29,7 @@ numy = 0;
 //How stretched the egg is (for every +1 to the value add 2 pixels to the center).
 stretch = 0;
 //The max amount the egg can stretch.
-stretchmax = 255;
+stretchmax = 256;
 //When you press down, set stretch reset to true, which will rapidly unstretch you.
 stretchreset = false;
 //Wether you unstretch up or down.
@@ -62,6 +66,8 @@ dlength = 0;
 undie = false;
 //Set to true when you spin, makes it so you have to release the down button to spin again.
 spinpressed = true;
+//Used to pause all of the player logic (besides collision.)
+pause = false;
 
 //The game checks if there is collision a pixel under you, and if so set this variable to true. Used to know what state to put the player in.
 onfloor = false;
@@ -70,3 +76,4 @@ onfloor = false;
 sprtop = spr_eggTop;
 sprmid = spr_eggMiddle;
 sprbot = spr_eggBottom;
+
