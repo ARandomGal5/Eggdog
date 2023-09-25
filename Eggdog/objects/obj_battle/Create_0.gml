@@ -13,14 +13,26 @@ button = array_create(2, 0);
 select = 0;
 //What action you use (each array index is for a party member)
 action = array_create(2, 0);
+//What act you use.
+act = array_create(2, 0);
+//What item you used.
+itemuse = array_create(2, 0);
+//What party member you used an item on.
+itemmember = array_create(2, 0);
 //Which party member you are selecting for.
 turn = 0;
 //If you are selecting which act to use.
 actselect = false;
+//If you are selecting which party member to use an item on.
+itemselect = false;
 //What act column you are selecting.
 actx = 0;
 //What act row you are selecting.
 acty = 0;
+//What item column you are selecting,
+itemx = 0;
+//What item row you are selecting.
+itemy = 0;
 //Used to make the "party box" smoothly go down, offsets the Y position by an amount that decreases every frame.
 yoffset = array_create(2, 0);
 //Sets the opacity of the white effect while selecting an enemy.
@@ -29,9 +41,12 @@ whitealpha = 0;
 whitealphadir = 1;
 //Creates the flavor text font.
 font = font_add_sprite(spr_deltaFont, ord(" "), false, -2);
+//Sets the depth (used to layer the enemy correctly with the spinning sword.)
+depth = 0;
 
-linex = array_create(2, 0);
-linealpha = array_create(2, 1);
+var _layer = layer_get_id("GUI");
+_party0 = layer_sprite_get_id(_layer, "party0");
+_party1 = layer_sprite_get_id(_layer, "party1");
 
 enemy[0] = {
 	_name : "Eggdog",
@@ -61,18 +76,45 @@ party[1] = {
 	magic: 2,
 }
 
-item[0] = {
-	_name: "Strawberry"
-}
 item[1] = {
-	_name: "Spaghetti"
+	_name: "Strawberry",
+	desc : "Heals 20HP",
+	hp : 20,
+	tp : 0,
+	atk: 0,
+	def : 0,
 }
 item[2] = {
-	_name : "Milk"	
+	_name: "Spaghetti",
+	desc : "Heals 100HP",
+	hp : 100,
+	tp : 0,
+	atk : 0,
+	def : 0,
 }
 item[3] = {
-	_name : "Baguette"	
+	_name : "Milk",
+	desc : "Raises TP 20%",
+	hp : 0,
+	tp : 20,
+	atk : 0,
+	def : 0,
 }
+
 item[4] = {
-	_name : "Cake"
+	_name : "Cake",
+	desc : "Raises defense 20%",
+	hp : 0,
+	tp : 0,
+	atk : 0,
+	def : 20,
 }
+
+inv = array_create(4, 0);
+
+inv[0] = 2;
+inv[1] = 1;
+inv[2] = 1;
+inv[3] = 1;
+inv[4] = 3;
+inv[5] = 4;

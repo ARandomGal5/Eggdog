@@ -4,13 +4,11 @@ function input(key){
 	//Horizontal inputs, accepts either left or right key for convience. Returns -1 on left inputs, 1 on right inputs, and 0 if there is no horizontal input.
 	if (key == global.left || key == global.right) {
 		return keyboard_check(global.right) - keyboard_check(global.left);	
-	}
-	
-	if (key == global.up || key == global.down) {
+	} else if (key == global.up || key == global.down) {
 		return keyboard_check(global.down) - keyboard_check(global.up);	
-	}
-	
-	if key == global.jump {
+	} else if key == global.jump {
 		return keyboard_check(global.jump);
+	} else {
+		return keyboard_check(key);	
 	}
 }

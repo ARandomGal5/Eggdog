@@ -10,8 +10,6 @@ draw_sprite_ext(spr_egg, -1, 1100, 375, -4, 4, 0, c_white, 1);
 //(There is probably a better way to do this tbh) draws a white copy of the sprite when they're being selected and changes the opacity to make it look like they're fading in/out white.
 draw_sprite_ext(spr_eggWhite, -1, 1100, 375, -4, 4, 0, c_white, whitealpha);
 
-draw_sprite_ext(spr_sword, -1, 1140, 375, 4, 4, 0, c_white, 1);
-
 //Sets the font to the deltarune font.
 
 //Draws your TP and subtracts 20 from the X for some reason? I just trail and errored compared it to a screenshot and this is what made it always match deltarune no matter the value of TP (it still is a fucking pixel off sometimes, though).
@@ -30,17 +28,6 @@ if turn == 0 {
 	draw_text(578, 604 - yoffset[0], string(party[0].maxhp));
 	//Draws their health bar.
 	draw_healthbar(472, 630 - yoffset[0], 623, 647 - yoffset[0], (party[0].hp/party[0].maxhp)*100, c_white, c_white, c_white, 0, false, false);
-	//Draws the line things.
-	//Moves the lines inward every frame.
-	linex[0] += 2;
-	linex[1] -= 10;
-	linealpha[0] -= 0.03;
-	
-	if linex[0] == 74 linex[0] = 0;
-	if linealpha[0] <= 0 linealpha[0] = 1;
-	
-	draw_set_alpha(linealpha[0]);
-	draw_line_width(464 + linex[0], 745, 464 + linex[0], 812, 5)
 	//Draws the buttons.
 	if button[0] == 0 draw_sprite_ext(spr_encounterButton, 1, 256, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 0, 256, 666, 2, 2, 0, c_white, 1);
 	if button[0] == 1 draw_sprite_ext(spr_encounterButton, 3, 326, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 2, 326, 666, 2, 2, 0, c_white, 1);
@@ -84,8 +71,6 @@ if turn == 1 {
 	draw_healthbar(900, 694 - yoffset[1], 1051, 711 - yoffset[1], (party[1].hp/party[1].maxhp)*100, c_white, c_white, c_white, 0, false, false);
 }
 
-//Sets the font to the encounter font.
-draw_set_font(fnt_Deltamainbig);
 
 //Sets the font to the custom font created in the create even from spr_deltaFont.
 draw_set_font(font);
@@ -98,13 +83,14 @@ if select == 0 {
 	draw_text(120, 756, flavor[0]);
 }
 
+//Sets the font.
+draw_set_font(fnt_Deltamainbig);
 //Checks if it should show the enemy list.
 if select == 1 || select == 2 && actselect == false || select == 4 {
-	//Sets the font.
-	draw_set_font(fnt_Deltamainbig);
+
 	//Draws the enemy's name.
 	draw_text(160, 753, string(enemy[0]._name));
-	//Draws the soul selector.
+	//Draws the selecting soul.
 	draw_sprite_ext(spr_soul, -1, 108, 768, 2, 2, 0, c_white, 1);
 	//White overlay effect thing.
 	//A sprite is drawn on top of the enemy sprite that is pure white to give it the white flashing effect, this increases/decrease the whiteness every frame.
@@ -127,8 +113,6 @@ if select == 1 || select == 2 && actselect == false || select == 4 {
 
 //Checks if it should show the act list.
 if select == 2 && actselect == true {
-	//Sets the font.
-	draw_set_font(fnt_Deltamainbig);
 	//Draws the selecting soul.
 	if actx == 0 && acty == 0 draw_sprite_ext(spr_soul, -1, 18, 768, 2, 2, 0, c_white, 1);
 	if actx == 1 && acty == 0 draw_sprite_ext(spr_soul, -1, 478, 768, 2, 2, 0, c_white, 1);
@@ -137,4 +121,45 @@ if select == 2 && actselect == true {
 	draw_text(60, 753, string(enemy[0].act0));
 	draw_text(520, 753, string(enemy[0].act1));
 	draw_text(60, 813, string(enemy[0].act2));
+}
+
+//Checks if it should show the item list.
+if select == 3 {
+	//Checks if you are selecting an item to use.
+	if itemselect = false {
+		//Sets the text color to white.
+		draw_set_color(c_white);
+		//Draws the selecting soul.
+		if itemx == 0 && itemy == 0 draw_sprite_ext(spr_soul, -1, 18, 768, 2, 2, 0, c_white, 1);
+		if itemx == 1 && itemy == 0 draw_sprite_ext(spr_soul, -1, 478, 768, 2, 2, 0, c_white, 1);
+		if itemx == 0 && itemy == 1 draw_sprite_ext(spr_soul, -1, 18, 828, 2, 2, 0, c_white, 1);
+		if itemx == 1 && itemy == 1 draw_sprite_ext(spr_soul, -1, 478, 828, 2, 2, 0, c_white, 1);
+		if itemx == 0 && itemy == 2 draw_sprite_ext(spr_soul, -1, 18, 888, 2, 2, 0, c_white, 1);
+		if itemx == 1 && itemy == 2 draw_sprite_ext(spr_soul, -1, 478, 888, 2, 2, 0, c_white, 1);
+		//Draws the item names.
+		draw_text(60, 753, item[inv[0]]._name);
+		draw_text(520, 753, item[inv[1]]._name);
+		draw_text(60, 813, item[inv[2]]._name);
+		draw_text(520, 813, item[inv[3]]._name);
+		draw_text(60, 873, item[inv[4]]._name);
+		draw_text(520, 873, item[inv[5]]._name);
+		
+		//Sets the text color to gray.
+		draw_set_color(c_gray);
+		//Draws the item description.
+		if itemx == 0 && itemy == 0 draw_text_ext(1000, 753, item[inv[0]].desc, 64, 100);
+		if itemx == 1 && itemy == 0 draw_text_ext(1000, 753, item[inv[1]].desc, 64, 100);
+		if itemx == 0 && itemy == 1 draw_text_ext(1000, 753, item[inv[2]].desc, 64, 100);
+		if itemx == 1 && itemy == 1 draw_text_ext(1000, 753, item[inv[3]].desc, 64, 100);
+		if itemx == 0 && itemy == 2 draw_text_ext(1000, 753, item[inv[4]].desc, 64, 100);
+		if itemx == 1 && itemy == 2 draw_text_ext(1000, 753, item[inv[5]].desc, 64, 100);
+	//Checks if you are selecting a party member to use it on.
+	} else {
+		//Draws the selecting soul.
+		if itemy == 0 draw_sprite_ext(spr_soul, -1, 108, 768, 2, 2, 0, c_white, 1);
+		if itemy == 1 draw_sprite_ext(spr_soul, -1, 108, 828, 2, 2, 0, c_white, 1);
+		//Draws the party member's name.
+		draw_text(160, 753, string(party[0]._name));
+		draw_text(160, 813, string(party[1]._name));
+	}
 }
