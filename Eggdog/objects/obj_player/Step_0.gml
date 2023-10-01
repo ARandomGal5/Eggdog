@@ -163,23 +163,23 @@ if onfloor == true {
 
 //Checks if you are pressing up and not unstretching, and not dead.
 if input(global.up) == -1 && stretchreset == false && _health > 0 {
-	if stretch = 0 unstretch = false;
+	if _stretch = 0 unstretch = false;
 	//If you are under the maximum stretch amount and there is not a collision object above where you will stretch to next, increase your stretch amout by 5 every frame.
-	if stretch < stretchmax && !tile_meeting(x, y - 10, "tiles") && !place_meeting(x, y - 10, obj_col) stretch += 5;
+	if _stretch < stretchmax && !tile_meeting(x, y - 10, "tiles") && !place_meeting(x, y - 10, obj_col) _stretch += 5;
 	//If you are over the max stretch length, reset to the max.
-	if stretch > stretchmax stretch = stretchmax;
+	if _stretch > stretchmax _stretch = stretchmax;
 	//Checks if the next space filled by your stretch will be occupied.
 	if tile_meeting(x, y - 10, "tiles") {
 		//Loops until you are level with the ceiling to snap you against it.
 		for(var _i = 1; !tile_meeting(x, y - _i - 5, "tiles"); _i++) {
-			stretch += 1;
+			_stretch += 1;
 		}
 	}
 	
 	if place_meeting(x, y - 10, obj_col) {
 		//Loops until you are level with the ceiling to snap you against it.
 		for(var _i = 1; !place_meeting(x, y - _i - 5, obj_col); _i++) {
-			stretch += 1;
+			_stretch += 1;
 		}
 	}
 	
@@ -191,7 +191,7 @@ if input(global.up) == -1 && stretchreset == false && _health > 0 {
 if input(global.up) != -1 unstretch = true;
 
 //Checks if you press a vertical input and are currently stretched, and aren't unstretching already.
-if input_pressed(global.down) != 0 && stretch > 1 && stretchreset == false && unstretch == true {
+if input_pressed(global.down) != 0 && _stretch > 1 && stretchreset == false && unstretch == true {
 	//Sets if you are unstretching up or down.
 	if input_pressed(global.up) == -1 stretchdir = 0
 	if input_pressed(global.down) == 1 stretchdir = 1;
@@ -203,28 +203,28 @@ if input_pressed(global.down) != 0 && stretch > 1 && stretchreset == false && un
 if stretchreset == true {
 	//If you are unstretching up, decrease your Y by double the unstretch rate so that you go up.
 	if stretchdir = 0 {
-		if stretch >= 30 y -= 60 else {
-			y -= stretch*2;
+		if _stretch >= 30 y -= 60 else {
+			y -= _stretch*2;
 			if !tile_meeting(x, y - 2, "tiles") && !place_meeting(x, y - 2, obj_col) y -= 2;
 		}
 	}
 	//Unstretch by 30 every frame.
-	if stretch >= 30 stretch -= 30 else stretch = 0; 
+	if _stretch >= 30 _stretch -= 30 else _stretch = 0; 
 
 	//If you are done strecthing, set your stretch to 0 and stpo unstretching.
-	if stretch <= 0 {
-		stretch = 0;
+	if _stretch <= 0 {
+		_stretch = 0;
 		stretchreset = false;
 	}
 	if !audio_is_playing(snd_stretch) audio_play_sound(snd_stretch, 1, false);
 }
 
-if (input(global.up) == 0 && stretchreset == false || stretch = stretchmax || place_meeting(x, y - 10, obj_col)) audio_stop_sound(snd_stretch);
+if (input(global.up) == 0 && stretchreset == false || _stretch = stretchmax || place_meeting(x, y - 10, obj_col)) audio_stop_sound(snd_stretch);
 
 //Sets your image xscale to 4 (to resize the pixel art) times your x-direction (to flip the image if you are facing left)
 image_xscale = 4*xdir;
 //If you are currently stretching, set your yscale to 4 + your stretch/8 (honestly I am unsure why this specifically works), and if you are not stretching set it to the default of 4.
-if stretch != 0 image_yscale = 4+stretch/8 else image_yscale = 4;
+if _stretch != 0 image_yscale = 4+_stretch/8 else image_yscale = 4;
 
 if state == idle {
 	//If you are moving, decrease your speed by your acceleration every frame.
@@ -323,7 +323,7 @@ if iframe >= 0 iframe -= 1;
 //Checks if you have died.
 if _health <= 0 {
 	//Resets your stretch.
-	stretch = 0;
+	_stretch = 0;
 	if deathtime == -1 deathtime = 150;
 	if deathtime == 150 {
 		audio_play_sound(snd_explosion, 1, false);	

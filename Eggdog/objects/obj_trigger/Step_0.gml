@@ -2,8 +2,10 @@
 if place_meeting(x, y, obj_player) {
 	//Checks for the ID value of the object, which should be set in instance create.
 	if obj_player.onfloor == true && _id == 0 {
-		//Counts how many frames the cutscene has been running for.
-		ctime += 1;
+		//Sets the player's state to idle.
+		obj_player.state = obj_player.idle;
+		//Resets the player's stretch
+		obj_player._stretch = 0;
 		//Pauses all of the player logic.
 		obj_player.pause = true;
 		//Fades out the music.
@@ -24,5 +26,7 @@ if place_meeting(x, y, obj_player) {
 		if ctime == 130 {
 			audio_play_sound(snd_encounter, 1, false);
 		}
+		//Counts how many frames the cutscene has been running for.
+		ctime += 1;
 	}
 }

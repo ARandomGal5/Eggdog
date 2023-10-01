@@ -34,6 +34,8 @@ if turn == 0 {
 	if button[0] == 2 draw_sprite_ext(spr_encounterButton, 5, 396, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 4, 396, 666, 2, 2, 0, c_white, 1);
 	if button[0] == 3 draw_sprite_ext(spr_encounterButton, 7, 466, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 6, 466, 666, 2, 2, 0, c_white, 1);
 	if button[0] == 4 draw_sprite_ext(spr_encounterButton, 9, 536, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 8, 536, 666, 2, 2, 0, c_white, 1);
+	layer_sprite_index(_party0, 0)
+	layer_sprite_y(_party0, 586 - yoffset[0])
 //Otherwise...
 } else {
 	//Draws the head sprite.
@@ -44,6 +46,8 @@ if turn == 0 {
 	draw_text(578, 668 - yoffset[0], string(party[0].maxhp));
 	//Draws their heatlh bar.
 	draw_healthbar(472, 694 - yoffset[0], 623, 711 - yoffset[0], (party[0].hp/party[0].maxhp)*100, c_white, c_white, c_white, 0, false, false)
+	layer_sprite_index(_party0, 1);
+	layer_sprite_y(_party0, 650 - yoffset[0])
 }
 
 draw_set_alpha(1);
@@ -62,6 +66,9 @@ if turn == 1 {
 	if button[1] == 2 draw_sprite_ext(spr_encounterButton, 5, 824, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 4, 824, 666, 2, 2, 0, c_white, 1);
 	if button[1] == 3 draw_sprite_ext(spr_encounterButton, 7, 894, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 6, 894, 666, 2, 2, 0, c_white, 1);
 	if button[1] == 4 draw_sprite_ext(spr_encounterButton, 9, 966, 666, 2, 2, 0, c_white, 1) else draw_sprite_ext(spr_encounterButton, 8, 966, 666, 2, 2, 0, c_white, 1);
+	layer_sprite_index(_party1, 0);
+	layer_sprite_y(_party1, 586 - yoffset[1])
+
 } else {
 	draw_sprite_ext(spr_headegg, action[1], 668, 674 - yoffset[1], 2, 2, 0, c_white, 1);
 	//Draws their health.
@@ -69,6 +76,8 @@ if turn == 1 {
 	draw_text(1006, 668 - yoffset[1], string(party[1].maxhp));
 	//Draws their health bar.
 	draw_healthbar(900, 694 - yoffset[1], 1051, 711 - yoffset[1], (party[1].hp/party[1].maxhp)*100, c_white, c_white, c_white, 0, false, false);
+	layer_sprite_index(_party1, 1);
+	layer_sprite_y(_party1, 650 - yoffset[1])
 }
 
 

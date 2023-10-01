@@ -49,6 +49,8 @@ if select == 1 {
 		//Causes the box to smoothly go down instead of snapping.
 		yoffset[turn] = 64;
 		yoffset[turn + 1] = -64;
+		partyoffset[1] = 64;
+		partyoffset[0] = -64;
 		//Resets what button you are selecting to none.
 		select = 0;
 		//Goes to the next turn.
@@ -136,6 +138,8 @@ if select == 5 {
 	//Causes the box to smoothly go down instead of snapping.
 	yoffset[turn] = 64;
 	yoffset[turn + 1] = -64;
+	partyoffset[turn] = 64;
+	partyoffset[turn + 1] = -64;
 	//Increaes your turn by 1.
 	turn += 1;
 }
@@ -159,6 +163,8 @@ if input_pressed(global.back) && turn == 1 && select == 0 {
 	//Makes it so the party boxes smoothly go up and down instead of snapping.
 	yoffset[1] = 64;
 	yoffset[0] = -64;
+	partyoffset[1] = 64;
+	partyoffset[0] = -64;
 	//Decrease your turn by 1.
 	turn -= 1;
 }
@@ -167,15 +173,9 @@ if input_pressed(global.back) && turn == 1 && select == 0 {
 
 
 if turn == 0 {
-	layer_sprite_index(_party0, 0)
-	layer_sprite_index(_party1, 1);
-	layer_sprite_y(_party0, 586 - yoffset[0])
-	layer_sprite_y(_party1, 650 - yoffset[1])
-} else if turn == 1 {
-	layer_sprite_index(_party0, 1);
-	layer_sprite_index(_party1, 0);
-	layer_sprite_y(_party0, 650 - yoffset[0])
-	layer_sprite_y(_party1, 586 - yoffset[1])
+
+} else {
+
 }
 
 //If combat starts.
@@ -189,8 +189,15 @@ layer_sprite_y(_party1, 650 - yoffset[1])
 }
 
 //When a party box needs to go down, decrease the offset it is pushed up to make it smoothly go down until the offset is 0.
-if yoffset[0] > 24 yoffset[0] -= 24 else if yoffset[0] > 0 yoffset[0] = 0;
-if yoffset[1] > 24 yoffset[1] -= 24 else if yoffset[1] > 0 yoffset[1] = 0;
+if yoffset[0] > 12 yoffset[0] -= 12 else if yoffset[0] > 0 yoffset[0] = 0;
+if yoffset[1] > 12 yoffset[1] -= 12 else if yoffset[1] > 0 yoffset[1] = 0;
 
-if yoffset[0] < -24 yoffset[0] += 24 else if yoffset[0] < 0 yoffset[0] = 0;
-if yoffset[1] < -24 yoffset[1] += 24 else if yoffset[1] < 0 yoffset[1] = 0;
+if yoffset[0] < -12 yoffset[0] += 12 else if yoffset[0] < 0 yoffset[0] = 0;
+if yoffset[1] < -12 yoffset[1] += 12 else if yoffset[1] < 0 yoffset[1] = 0;
+
+var _whatthefuck = 24;
+if partyoffset[0] > _whatthefuck partyoffset[0] -= _whatthefuck else if partyoffset[0] > 0 partyoffset[0] = 0;
+if partyoffset[1] > _whatthefuck partyoffset[1] -= _whatthefuck else if partyoffset[1] > 0 partyoffset[1] = 0;
+
+if partyoffset[0] < -_whatthefuck partyoffset[0] += _whatthefuck else if partyoffset[0] < 0 partyoffset[0] = 0;
+if partyoffset[1] < -_whatthefuck partyoffset[1] += _whatthefuck else if partyoffset[1] < 0 partyoffset[1] = 0;

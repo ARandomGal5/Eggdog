@@ -35,6 +35,7 @@ itemx = 0;
 itemy = 0;
 //Used to make the "party box" smoothly go down, offsets the Y position by an amount that decreases every frame.
 yoffset = array_create(2, 0);
+partyoffset = array_create(2, 0);
 //Sets the opacity of the white effect while selecting an enemy.
 whitealpha = 0;
 //Whither to add or remove opacity from the white effect (1 for adding -1 for removing).

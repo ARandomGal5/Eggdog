@@ -27,7 +27,7 @@ numx = 0;
 numy = 0;
 
 //How stretched the egg is (for every +1 to the value add 2 pixels to the center).
-stretch = 0;
+_stretch = 0;
 //The max amount the egg can stretch.
 stretchmax = 256;
 //When you press down, set stretch reset to true, which will rapidly unstretch you.

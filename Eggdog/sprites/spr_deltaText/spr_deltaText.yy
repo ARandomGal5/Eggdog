@@ -23,7 +23,7 @@
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"5cddc999-73e2-4a28-9267-ad8a7971b8a8","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
-  "origin": 7,
+  "origin": 1,
   "parent": {
     "name": "encounter",
     "path": "folders/Sprites/hud/encounter.yy",
@@ -60,7 +60,7 @@
     "visibleRange": null,
     "volume": 1.0,
     "xorigin": 148,
-    "yorigin": 83,
+    "yorigin": 0,
   },
   "swatchColours": null,
   "swfPrecision": 2.525,
