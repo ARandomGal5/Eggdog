@@ -2,7 +2,7 @@ if _id == 0 {
 	if ctime > 130 {
 		draw_sprite_ext(spr_deltaExclamation, -1, 352, 864, 4, 4, 0, c_white, 1);
 	}
-	if ctime > 180 {
+	if ctime = 180 {
 		//Draws the text box itself.
 		draw_sprite_ext(spr_deltaText, -1, 960, 0, 4, 4, 0, c_white, 1);
 		//Creates a font from the deltarune font sprite and saves it to 'font'.
@@ -10,7 +10,7 @@ if _id == 0 {
 		//Draws the eggdog portrait sprite.
 		draw_sprite_ext(spr_eggPortrait, -1, 458, 76, 4, 4, 0, c_white, 1);
 		//Saves the string in a local variable.
-		var _string = "eg\nEGGDOG WANTS TO BATTLE"
+		_string = "eg\nEGGDOG WANTS TO BATTLE"
 		//Increases a ticker called "textcount"
 		textcount += 1
 		//If the ticker is divisible by four (or two while holding jump to make the text scroll faster) and the text isn't done 'scrolling'...

@@ -26,7 +26,13 @@ if place_meeting(x, y, obj_player) {
 		if ctime == 130 {
 			audio_play_sound(snd_encounter, 1, false);
 		}
+		if ctime = 180 {
+			if textprogress != string_length(_string) textshow = true;
+			if textprogress == string_length(_string) && input_pressed(global.jump) {
+				textshow = false;
+			}
+		}
 		//Counts how many frames the cutscene has been running for.
-		ctime += 1;
+		if textshow == false ctime += 1;
 	}
 }
