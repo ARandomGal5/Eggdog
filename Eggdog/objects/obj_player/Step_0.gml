@@ -1,69 +1,16 @@
-//Tile Collisions
-//Check for horizontal collision.
-if tile_meeting(x + xspeed, y, "tiles") {
-	//Loop you out of it.
-	while !tile_meeting(x + sign(xspeed), y, "tiles") {
-		x += sign(xspeed)
-	}
-	//Set your horizontal speed to 0.
-	xspeed = 0;
-}
-
-//Same thing but vertical.
-if tile_meeting(x, y + yspeed, "tiles") {
-	while !tile_meeting(x, y + sign(yspeed), "tiles") {
-		y += sign(yspeed)
-	}
-	yspeed = 0;
-}
-
-//Also has object based collisions, which has two uses.
-//A. Allow for dedicated 'oveerride' collisions like invisible walls in places where there should be no tiles.
-//B. Allows the collision object to parent objects that should be solid like obj_break
-
-//Checks for horizontal collision.
-if place_meeting(x + xspeed, y, obj_col) {
-	//Loop you out of it.
-	while !place_meeting(x + sign(xspeed), y, obj_col) {
-		x += sign(xspeed)
-	}
-	//Set your horizontal speed to 0.
-	xspeed = 0;
-}
-
-//Same thing but vertical.
-if place_meeting(x, y + yspeed, obj_col) {
-	while !place_meeting(x, y + sign(yspeed), obj_col) {
-		y += sign(yspeed)
-	}
-	yspeed = 0;
-}
-
-
-if place_meeting(x, y + yspeed, obj_semiSolid) {
-	if collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false) {
-		while !place_meeting(x, y + sign(yspeed), obj_semiSolid) {
-			y += sign(yspeed)
-		}
-		yspeed = 0;
-	}
-}
-
 //Checks for the "pause" variable, which is set to true when you pause the game or are in a cutscene.
 if pause == false {
 //Increment your position by your speed values every frame.
 x += xspeed;
 y += yspeed;
 
+if collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom + 1, obj_semiSolid, false, true) {
+	_semi = collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom + 1, obj_semiSolid, false, true);
+}
 //Checks if you are on the floor, by checking if there is a collision object or semisolid below you.
-if tile_meeting(x, y + 1, "tiles") || place_meeting(x, y + 1, obj_col) || collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false) {
-	if collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false) {
-		var semisolid = collision_line(bbox_left, bbox_bottom, bbox_right, bbox_bottom, obj_semiSolid, false, false)
-		if bbox_bottom >= semisolid.bbox_top && yspeed >= 0 onfloor = true;
-	} else onfloor = true;
+if tile_meeting(x, y + 1, "tiles") || place_meeting(x, y + 1, obj_col) || place_meeting(x, y + 1, obj_semiSolid) && y <= _semi.bbox_top {
+	if (!place_meeting(x, y + 1, obj_semiSolid) || place_meeting(x, y + 1, obj_semiSolid) && yspeed >= 0) onfloor = true;
 } else onfloor = false;
-
-
 
 //Checks if you collect a strawberry.
 if place_meeting(x, y, obj_strawberry) {
@@ -134,7 +81,7 @@ if onfloor == true {
 			if input(global.left) != 0 state = running else state = idle;
 		}
 		//Checks if you press the jump button without a ceiling touching you and send you into the jumping state.
-		if input(global.jump) && !tile_meeting(x, y - 1, "tiles") && !place_meeting(x, y - 1, obj_col) {
+		if input(global.jump) && !tile_meeting(x, y - 2, "tiles") && !place_meeting(x, y - 2, obj_col) {
 			//Sets your initial vertical velocity.
 			yspeed = -jumpinit;
 			//Plays the jump sound effect.
@@ -361,4 +308,53 @@ if _health <= 0 {
 	}
 	sprite_index = spr_eggFried;
 } else deathtime = -1;
+}
+
+//Tile Collisions
+//Check for horizontal collision.
+if tile_meeting(x + xspeed, y, "tiles") {
+	//Loop you out of it.
+	while !tile_meeting(x + sign(xspeed), y, "tiles") {
+		x += sign(xspeed)
+	}
+	//Set your horizontal speed to 0.
+	xspeed = 0;
+}
+
+//Same thing but vertical.
+if tile_meeting(x, y + yspeed, "tiles") {
+	while !tile_meeting(x, y + sign(yspeed), "tiles") {
+		y += sign(yspeed)
+	}
+	yspeed = 0;
+}
+
+//Also has object based collisions, which has two uses.
+//A. Allow for dedicated 'oveerride' collisions like invisible walls in places where there should be no tiles.
+//B. Allows the collision object to parent objects that should be solid like obj_break
+
+//Checks for horizontal collision.
+if place_meeting(x + xspeed, y, obj_col) {
+	//Loop you out of it.
+	while !place_meeting(x + sign(xspeed), y, obj_col) {
+		x += sign(xspeed)
+	}
+	//Set your horizontal speed to 0.
+	xspeed = 0;
+}
+
+//Same thing but vertical.
+if place_meeting(x, y + yspeed, obj_col) {
+	while !place_meeting(x, y + sign(yspeed), obj_col) {
+		y += sign(yspeed)
+	}
+	yspeed = 0;
+}
+
+
+if place_meeting(x, y + yspeed, obj_semiSolid) && yspeed >= 0 && y <= _semi.bbox_top {
+	while !place_meeting(x, y + sign(yspeed), obj_semiSolid) {
+		y += sign(yspeed)
+	}
+	yspeed = 0;
 }

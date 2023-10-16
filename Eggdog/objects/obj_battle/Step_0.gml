@@ -125,6 +125,19 @@ if select == 3 {
 	}
 	selecttime[2] += 1;
 } else selecttime[2] = 0;
+//Checks if you spare.
+if select == 4 {
+	if input_pressed(global.jump) && selecttime[3] >= 1 {
+		//Saves what action you selected.
+		action[turn] = 4;
+		//Causes the box to smoothly go down instead of snapping.
+		yoffset[turn] = 64;
+		yoffset[turn + 1] = -64;
+		select = 0;
+		turn += 1;
+	}
+	selecttime[3] += 1;	
+} else selecttime[3] = 0;
 //Checks if you defend.
 if select == 5 {
 	//Increases your TP by 20.
@@ -151,8 +164,18 @@ if sign(tpup) = 1 {
 }
 
 if turn == 2 {
-	
-}
+	if stateset == true {
+		if action[0] != 1 && action[0] != 5 && action[1] != 1 && action[1] != 5 {
+			state = 4;
+		} else if (action[0] != 1 && action[0] != 5 && (action[1] == 1 || action[1] == 5) || action[1] != 1 && action[1] != 5 && (action[0] == 1 || action[0] == 5)) {
+			state = 3;
+		} else if action[0] == 1 || action[1] == 1 {
+			state = 2;	
+		} else state = 1;
+		firststate = state;
+		stateset = false;
+	}
+} else stateset = true;
 
 //Checks if you go back a turn
 if input_pressed(global.back) && turn == 1 && select == 0 {
@@ -168,24 +191,13 @@ if input_pressed(global.back) && turn == 1 && select == 0 {
 	//Decrease your turn by 1.
 	turn -= 1;
 }
-
-//I did all of this instead of drawing the sprite directly so that it would be layered correctly (above the top row but below the flavor text box.)
-
-
-if turn == 0 {
-
-} else {
-
-}
-
-//If combat starts.
 } else {
 //If a soul object doesn't exist create one.
 if !instance_exists(obj_soul) instance_create_layer(215, 236, "objects", obj_soul);
-layer_sprite_index(_party0, 1);
-layer_sprite_index(_party1, 1);
-layer_sprite_y(_party0, 650 - yoffset[0])
-layer_sprite_y(_party1, 650 - yoffset[1])
+	layer_sprite_index(_party0, 1);
+	layer_sprite_index(_party1, 1);
+	layer_sprite_y(_party0, 650 - yoffset[0])
+	layer_sprite_y(_party1, 650 - yoffset[1])
 }
 
 //When a party box needs to go down, decrease the offset it is pushed up to make it smoothly go down until the offset is 0.

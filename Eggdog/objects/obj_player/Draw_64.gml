@@ -31,3 +31,5 @@ if dlength >= 1920 {
 	draw_text(960, 540, string(_string));
 } else boffset = -10;
 	
+
+draw_text(0, 32, string(_semi));

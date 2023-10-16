@@ -10,8 +10,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "ruins",
-    "path": "folders/Objects/objects/ruins.yy",
+    "name": "encounter",
+    "path": "folders/Objects/objects/ruins/encounter.yy",
   },
   "parentObjectId": null,
   "persistent": false,

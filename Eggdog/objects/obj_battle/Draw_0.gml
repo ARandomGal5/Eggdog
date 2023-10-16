@@ -100,7 +100,7 @@ if select == 1 || select == 2 && actselect == false || select == 4 {
 	//Draws the enemy's name.
 	draw_text(160, 753, string(enemy[0]._name));
 	//Draws the selecting soul.
-	draw_sprite_ext(spr_soul, -1, 108, 768, 2, 2, 0, c_white, 1);
+	draw_sprite_ext(spr_soul, -1, 126, 786, 2, 2, 0, c_white, 1);
 	//White overlay effect thing.
 	//A sprite is drawn on top of the enemy sprite that is pure white to give it the white flashing effect, this increases/decrease the whiteness every frame.
 	whitealpha += 0.05*whitealphadir;
@@ -123,13 +123,13 @@ if select == 1 || select == 2 && actselect == false || select == 4 {
 //Checks if it should show the act list.
 if select == 2 && actselect == true {
 	//Draws the selecting soul.
-	if actx == 0 && acty == 0 draw_sprite_ext(spr_soul, -1, 18, 768, 2, 2, 0, c_white, 1);
-	if actx == 1 && acty == 0 draw_sprite_ext(spr_soul, -1, 478, 768, 2, 2, 0, c_white, 1);
-	if actx == 0 && acty == 1 draw_sprite_ext(spr_soul, -1, 18, 828, 2, 2, 0, c_white, 1);
+	if actx == 0 && acty == 0 draw_sprite_ext(spr_soul, -1, 36, 786, 2, 2, 0, c_white, 1);
+	if actx == 1 && acty == 0 draw_sprite_ext(spr_soul, -1, 496, 786, 2, 2, 0, c_white, 1);
+	if actx == 0 && acty == 1 draw_sprite_ext(spr_soul, -1, 36, 840, 2, 2, 0, c_white, 1);
 	//Draws the acts's name.
-	draw_text(60, 753, string(enemy[0].act0));
-	draw_text(520, 753, string(enemy[0].act1));
-	draw_text(60, 813, string(enemy[0].act2));
+	draw_text(60, 753, string(enemy[0].act0name));
+	draw_text(520, 753, string(enemy[0].act1name));
+	draw_text(60, 813, string(enemy[0].act2name));
 }
 
 //Checks if it should show the item list.
@@ -139,12 +139,12 @@ if select == 3 {
 		//Sets the text color to white.
 		draw_set_color(c_white);
 		//Draws the selecting soul.
-		if itemx == 0 && itemy == 0 draw_sprite_ext(spr_soul, -1, 18, 768, 2, 2, 0, c_white, 1);
-		if itemx == 1 && itemy == 0 draw_sprite_ext(spr_soul, -1, 478, 768, 2, 2, 0, c_white, 1);
-		if itemx == 0 && itemy == 1 draw_sprite_ext(spr_soul, -1, 18, 828, 2, 2, 0, c_white, 1);
-		if itemx == 1 && itemy == 1 draw_sprite_ext(spr_soul, -1, 478, 828, 2, 2, 0, c_white, 1);
-		if itemx == 0 && itemy == 2 draw_sprite_ext(spr_soul, -1, 18, 888, 2, 2, 0, c_white, 1);
-		if itemx == 1 && itemy == 2 draw_sprite_ext(spr_soul, -1, 478, 888, 2, 2, 0, c_white, 1);
+		if itemx == 0 && itemy == 0 draw_sprite_ext(spr_soul, -1, 36, 786, 2, 2, 0, c_white, 1);
+		if itemx == 1 && itemy == 0 draw_sprite_ext(spr_soul, -1, 496, 786, 2, 2, 0, c_white, 1);
+		if itemx == 0 && itemy == 1 draw_sprite_ext(spr_soul, -1, 36, 846, 2, 2, 0, c_white, 1);
+		if itemx == 1 && itemy == 1 draw_sprite_ext(spr_soul, -1, 496, 846, 2, 2, 0, c_white, 1);
+		if itemx == 0 && itemy == 2 draw_sprite_ext(spr_soul, -1, 36, 906, 2, 2, 0, c_white, 1);
+		if itemx == 1 && itemy == 2 draw_sprite_ext(spr_soul, -1, 496, 906, 2, 2, 0, c_white, 1);
 		//Draws the item names.
 		draw_text(60, 753, item[inv[0]]._name);
 		draw_text(520, 753, item[inv[1]]._name);
@@ -165,10 +165,39 @@ if select == 3 {
 	//Checks if you are selecting a party member to use it on.
 	} else {
 		//Draws the selecting soul.
-		if itemy == 0 draw_sprite_ext(spr_soul, -1, 108, 768, 2, 2, 0, c_white, 1);
-		if itemy == 1 draw_sprite_ext(spr_soul, -1, 108, 828, 2, 2, 0, c_white, 1);
+		if itemy == 0 draw_sprite_ext(spr_soul, -1, 126, 786, 2, 2, 0, c_white, 1);
+		if itemy == 1 draw_sprite_ext(spr_soul, -1, 126, 828, 2, 2, 0, c_white, 1);
 		//Draws the party member's name.
 		draw_text(160, 753, string(party[0]._name));
 		draw_text(160, 813, string(party[1]._name));
 	}
 }
+
+//Checks if the actual moves are going.
+if turn == 2 {
+	if state == 3 {
+		//The * is drawn seperatly because for some reason the space between it and the rest of the text is different than the normal space size.
+		draw_text(60, 756, "*");
+		draw_set_font(font);
+		if action[0] == 2 && firststate != 4 {
+			if act[0] == 0 draw_text_ext(120, 756, enemy[0].act0desc, 64, 1100) else if act[0] == 1 draw_text_ext(120, 756, enemy[0].act1desc, 64, 1100) else draw_text_ext(120, 756, enemy[0].act2desc, 64, 1100);
+		} else if action[0] == 3 && firststate != 4 {
+			draw_text_ext(120, 756, string(party[0]._name) + " used the " + string(item[inv[itemuse[0]]]._name) + "!", 64, 1100)
+		} else if action[0] == 4 && firststate != 4 {
+			if enemy[0].spare < 100 {
+				draw_text_ext(120, 756, "Eggdog spared Eggdog!", 64, 1100)
+				draw_text(60, 820, "*");
+				draw_text_ext(120, 820, "But it's name wasn't YELLOW...", 64, 1100)
+				draw_text_color(120, 820, "                     YELLOW...", c_yellow, c_yellow, c_yellow, c_yellow, 1);      
+			}
+		}
+	} else if state == 2 {
+		if action[0] == 1 draw_sprite_ext(spr_attackBarGuide, -1, 158, 750, 2, 2, 0, c_white, 1);
+	}
+	if state == 0 {
+		if boxframe < 29 boxframe += 1;
+		draw_sprite(spr_battleBox, boxframe, 0, 0);
+	} else {
+		boxframe = 0;	
+	}
+} 

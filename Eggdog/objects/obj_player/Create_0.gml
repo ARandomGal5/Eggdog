@@ -7,6 +7,7 @@ jumping = 3;
 spin = 4;
 hurt = 5;
 
+_semi = obj_player;
 //If your bottom is within a tile on spawn, unclip you, makes it so that having a grid aligned eggdog above the floor doesn't clip you into it.
 if tile_meeting(x, y + 1, "tiles") y -= 1;
 

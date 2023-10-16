@@ -1,6 +1,6 @@
 if _id == 0 {
 	if ctime > 130 {
-		draw_sprite_ext(spr_deltaExclamation, -1, 352, 864, 4, 4, 0, c_white, 1);
+		draw_sprite_ext(spr_deltaExclamation, -1, inst_65FD7787.x + 25, inst_65FD7787.y - 125, 4, 4, 0, c_white, 1);
 	}
 	if ctime = 180 {
 		//Draws the text box itself.

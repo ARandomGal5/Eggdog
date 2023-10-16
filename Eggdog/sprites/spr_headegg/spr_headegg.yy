@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_headegg",
-  "bbox_bottom": 23,
+  "bbox_bottom": 22,
   "bbox_left": 0,
   "bbox_right": 28,
   "bbox_top": 0,
@@ -27,7 +27,6 @@
   "layers": [
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"dbd8a832-05a8-4a5c-a0dd-3fbbbef2811b","blendMode":0,"displayName":"Layer 2","isLocked":false,"opacity":100.0,"visible":true,},
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"5414df8e-0dde-4acc-bc25-224e22f50f9d","blendMode":0,"displayName":"Layer 1","isLocked":false,"opacity":100.0,"visible":true,},
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"226d94d2-ea42-45ab-82a9-5c462b74e526","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 0,

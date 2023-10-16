@@ -19,6 +19,12 @@ act = array_create(2, 0);
 itemuse = array_create(2, 0);
 //What party member you used an item on.
 itemmember = array_create(2, 0);
+//What member is being targeted.
+partytarget = 0;
+//What state teh attackphase is in
+state = 0;
+firststate = 0;
+stateset = true;
 //Which party member you are selecting for.
 turn = 0;
 //If you are selecting which act to use.
@@ -42,6 +48,8 @@ whitealpha = 0;
 whitealphadir = 1;
 //Creates the flavor text font.
 font = font_add_sprite(spr_deltaFont, ord(" "), false, -2);
+//What frame of the battlebox to draw.
+boxframe = 0;
 //Sets the depth (used to layer the enemy correctly with the spinning sword.)
 depth = 0;
 
@@ -49,14 +57,24 @@ var _layer = layer_get_id("GUI");
 _party0 = layer_sprite_get_id(_layer, "party0");
 _party1 = layer_sprite_get_id(_layer, "party1");
 
+_battlebox = layer_sprite_get_id(_layer, "battlebox");
+layer_sprite_alpha(_battlebox, 0);
+
 enemy[0] = {
 	_name : "Eggdog",
 	hp : 200,
 	atk : 10,
+	spare : 0,
 	defense : 3,
-	act0 : "Check",
-	act1 : "Pet",
-	act2 : "Bark",
+	act0name : "Check",
+	act0desc : "Eggdog - Heart of yolk and pure joy",
+	act0spare : 0,
+	act1name : "Pet",
+	act1desc : "Despite not having hands, you gently pet the eggdog. It seems to like this.",
+	act1spare : 25,
+	act2name : "Bark",
+	act2desc : "You bark at the eggdog, which only serves to scare it!",
+	act2spare : 0,
 }
 
 party[0] = {
@@ -109,6 +127,10 @@ item[4] = {
 	tp : 0,
 	atk : 0,
 	def : 20,
+}
+
+magic[0] = {
+	_name : "E-Action",	
 }
 
 inv = array_create(4, 0);
